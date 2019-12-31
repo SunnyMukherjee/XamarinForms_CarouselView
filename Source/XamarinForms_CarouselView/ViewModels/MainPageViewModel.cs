@@ -68,7 +68,9 @@ namespace XamarinForms_CarouselView.ViewModels
             TimerObj.Elapsed += (sender, e) =>
             {
                 lock(TimerLock)
-                {
+                {       
+                    MessagingCenter.Send<MainPageViewModel>(this, "TimerElapsed");
+
                     if (CurrentIndex < Products.Count - 1)
                     {
                         CurrentIndex++;
@@ -77,8 +79,6 @@ namespace XamarinForms_CarouselView.ViewModels
                     {
                         CurrentIndex = 0;
                     }
-
-                    MessagingCenter.Send<MainPageViewModel>(this, "TimerElapsed");
                 }
             };
         }
