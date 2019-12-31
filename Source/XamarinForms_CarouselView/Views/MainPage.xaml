@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XamarinForms_CarouselView.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:FFImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="MainPage1"
+    mc:Ignorable="d">
+    <ContentPage.Resources>
+
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="Aspect" Value="AspectFit" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
+        </Style>
+
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="VerticalOptions" Value="EndAndExpand" />
+        </Style>
+
+        <Style x:Key="IndicatorViewStyle" TargetType="IndicatorView">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            <Setter Property="IsVisible" Value="True" />
+            <Setter Property="IndicatorColor" Value="Blue" />
+            <Setter Property="SelectedIndicatorColor" Value="Red" />
+        </Style>
+
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid Margin="0,25,0,0" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <CarouselView
+                x:Name="ProductCarousel"
+                Grid.Row="0"
+                HeightRequest="200"
+                ItemsSource="{Binding Path=Products}">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Horizontal"
+                        SnapPointsAlignment="Start"
+                        SnapPointsType="MandatorySingle" />
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image
+                                Grid.Row="0"
+                                Source="{Binding Path=ImageObj.Source}"
+                                Style="{StaticResource ImageStyle}" />
+                            <Label
+                                Grid.Row="1"
+                                FontSize="16"
+                                Style="{StaticResource LabelStyle}"
+                                Text="{Binding Path=Title}" />
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <IndicatorView
+                Grid.Row="1"
+                IndicatorView.ItemsSourceBy="ProductCarousel"
+                Style="{StaticResource IndicatorViewStyle}" />
+
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>
